@@ -1,0 +1,24 @@
+{
+  "name": "@social-media/auth",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@social-media/db": "workspace:*",
+    "@social-media/env": "workspace:*",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@social-media/config": "workspace:*",
+    "typescript": "^5"
+  }
+}

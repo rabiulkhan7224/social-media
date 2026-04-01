@@ -1,0 +1,32 @@
+{
+  "name": "social-media",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev:web": "turbo -F web dev",
+    "dev:server": "turbo -F server dev",
+    "db:push": "turbo -F @social-media/db db:push",
+    "db:studio": "turbo -F @social-media/db db:studio",
+    "db:generate": "turbo -F @social-media/db db:generate",
+    "db:migrate": "turbo -F @social-media/db db:migrate"
+  },
+  "dependencies": {
+    "@social-media/env": "workspace:*",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@social-media/config": "workspace:*",
+    "@types/node": "^22.13.14",
+    "turbo": "^2.8.12",
+    "typescript": "^5"
+  },
+  "packageManager": "pnpm@10.6.3"
+}

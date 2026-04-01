@@ -1,0 +1,3 @@
+{
+  "extends": "@social-media/config/tsconfig.base.json"
+}
