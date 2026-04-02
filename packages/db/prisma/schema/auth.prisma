@@ -6,6 +6,9 @@ model User {
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  posts         Post[]
+  likes         Like[]
+  comments      Comment[]
   sessions      Session[]
   accounts      Account[]
 
@@ -35,6 +38,7 @@ model Account {
   providerId            String
   userId                String
   user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
   accessToken           String?
   refreshToken          String?
   idToken               String?

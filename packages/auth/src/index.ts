@@ -24,7 +24,9 @@ export function createAuth() {
         httpOnly: true,
       },
     },
-    plugins: [],
+    plugins: [
+      
+    ],
   });
 }
 

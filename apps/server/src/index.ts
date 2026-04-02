@@ -16,23 +16,22 @@ app.use(
   }),
 );
 
-app.use(express.json());
+app.all("/api/auth{/*path}", toNodeHandler(auth));
 
-app.all("/api/auth/*", toNodeHandler(auth));
+app.use(express.json());
 
 app.get("/", (_req, res) => {
   res.status(200).send("OK");
 });
-
 app.get("/api/me", async (req, res) => {
-  const session = await auth.api.getSession({
-    headers: fromNodeHeaders(req.headers),
-  });
-  return res.json(session);
+ 	const session = await auth.api.getSession({
+      headers: fromNodeHeaders(req.headers),
+    });
+	return res.json(session);
 });
 
 // API routes
-app.use("/api/v1", routers);
+app.use('/v1/api',  routers)
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
