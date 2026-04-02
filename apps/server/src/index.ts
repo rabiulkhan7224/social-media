@@ -4,6 +4,8 @@ import { fromNodeHeaders, toNodeHandler } from "better-auth/node";
 import cors from "cors";
 import express from "express";
 import routers from "./app/routers";
+import globalErrorHandler from "./app/middlewares/globalErrorHandler";
+import notFound from "./app/middlewares/notFound";
 
 const app = express();
 const port = env.PORT || 3000;
@@ -32,6 +34,9 @@ app.get("/api/me", async (req, res) => {
 
 // API routes
 app.use('/v1/api',  routers)
+// Error handling middleware
+app.use(globalErrorHandler as unknown as express.ErrorRequestHandler)
+app.use(notFound as unknown as express.ErrorRequestHandler)
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
