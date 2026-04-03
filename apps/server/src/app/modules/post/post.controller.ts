@@ -1,11 +1,26 @@
 import type { RequestHandler } from "express";
 import catchAsync from "@/app/utils/catchAsync";
-import { getPosts } from "./post.service";
+import { createPost, getPosts } from "./post.service";
+import AppError from "@/app/errors/AppError";
 
 export const createPosted: RequestHandler = catchAsync(async (req, res) => {
+  const { content, image,  } = req.body;
+  const userId = req.user?.id;
+
+  // Validate required fields
+  if (!userId) {
+    throw new AppError(401, 'auth', 'User not authenticated');
+  }
+
+  if (!content) {
+    throw new AppError(400, 'validation', 'Content is required');
+  }
+
+  const result = await createPost(userId, { content, image,  });
+
   res.status(201).json({
-    message: "Post created successfully",
-    data: req.body,
+    success: true,
+    data: result,
   });
 });
 

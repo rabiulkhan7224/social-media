@@ -5,31 +5,59 @@ import AppError from '../../errors/AppError'
 import type {  Prisma } from 'node_modules/@social-media/db/prisma/generated/client'
 import type { GetPostsParams, GetPostsResult } from './post.interface'
 
+// export const createPost = async (
+//     data: { content: string; image?: string },
+//     userId: string
+// ) => {
+//   try {
+//     const post = await prisma.post.create({
+//       data: {
+//         content: data.content,
+//         image: data.image || null,
+//         authorId: userId
+//       },
+   
+//     })
+
+//     return post
+//   } catch (error) {
+//     if (error instanceof Error) {
+//       throw new AppError(500, 'database', 'Failed to create post', error.message)
+//     }
+//     throw error
+//   }
+// }
+
 export const createPost = async (
   userId: string,
-  data: {
-    content: string
-    image?: string
-  }
+  data: { content: string; image?: string;  }
 ) => {
   try {
     const post = await prisma.post.create({
       data: {
         content: data.content,
         image: data.image || null,
-        authorId: userId
+        authorId: userId,
       },
-   
-    })
+      include: {
+        author: {
+          select: {
+            id: true,
+            email: true,
+            name: true,
+          },
+        },
+      },
+    });
 
-    return post
+    return post;
   } catch (error) {
     if (error instanceof Error) {
-      throw new AppError(500, 'database', 'Failed to create post', error.message)
+      throw new AppError(500, 'database', 'Failed to create post', error.message);
     }
-    throw error
+    throw error;
   }
-}
+};
 
 
 
@@ -37,8 +65,7 @@ export const createPost = async (
 export const getPosts = async (params: GetPostsParams = {}): Promise<GetPostsResult> => {
   const {
     page = 1,
-    limit = 10,
-    authorId,
+    limit = 20,
     search,
     sortBy = 'createdAt',
     sortOrder = 'desc',
@@ -53,9 +80,7 @@ export const getPosts = async (params: GetPostsParams = {}): Promise<GetPostsRes
   // Build where clause
   const where: Prisma.PostWhereInput = {};
 
-  if (authorId) {
-    where.authorId = authorId;
-  }
+ 
 
   if (search) {
     where.OR = [
