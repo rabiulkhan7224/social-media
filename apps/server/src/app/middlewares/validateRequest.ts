@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Request, Response, NextFunction,  RequestHandler } from 'express'
+import type { Request, Response, NextFunction, RequestHandler } from 'express'
 import catchAsync from '../utils/catchAsync'
 import AppError from '../errors/AppError'
-import { ZodError, type AnyZodObject, type ZodIssue } from 'zod/v3'
+import { ZodError, type ZodTypeAny, type ZodIssue } from 'zod'
 
 /**
  * Request validation middleware using Zod schemas
@@ -26,7 +26,7 @@ import { ZodError, type AnyZodObject, type ZodIssue } from 'zod/v3'
  * // Use the middleware
  * app.post('/users/:id', validateRequest(userSchema), userController.createUser);
  */
-const validateRequest = (schema: AnyZodObject):RequestHandler => {
+const validateRequest = (schema: ZodTypeAny): RequestHandler => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     try {
       // Prepare the data to validate (body, cookies, and params)
@@ -45,7 +45,7 @@ const validateRequest = (schema: AnyZodObject):RequestHandler => {
       // Handle Zod validation errors
       if (error instanceof ZodError) {
         // Format the Zod error into a more readable format
-        const formattedErrors = error.errors.map((err: ZodIssue) => {
+        const formattedErrors = error.issues.map((err: ZodIssue) => {
           // Base error object
           const errorObj: any = {
             path: err.path.join('.'),

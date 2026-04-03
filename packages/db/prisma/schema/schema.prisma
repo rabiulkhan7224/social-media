@@ -9,8 +9,8 @@ datasource db {
   provider = "postgresql"
 }
 model Post{
-  id        String   @id
-  title     String
+  id        String   @id @default(uuid())
+  
   content   String
   image     String?
   authorId  String
@@ -24,7 +24,7 @@ model Post{
 }
 
 model Comment {
-  id        String   @id
+  id        String   @id @default(uuid())
   content   String
   postId    String
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
@@ -41,7 +41,7 @@ model Comment {
 }
 
 model Like {
-  id        String   @id
+  id        String   @id @default(uuid())
   postId    String
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   userId    String
