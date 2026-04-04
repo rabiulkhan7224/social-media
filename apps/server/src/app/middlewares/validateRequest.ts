@@ -26,6 +26,8 @@ import { ZodError, type ZodTypeAny, type ZodIssue } from 'zod'
  * // Use the middleware
  * app.post('/users/:id', validateRequest(userSchema), userController.createUser);
  */
+
+
 const validateRequest = (schema: ZodTypeAny): RequestHandler => {
   return catchAsync(async (req: Request, _res: Response, next: NextFunction) => {
     try {
