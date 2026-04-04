@@ -8,7 +8,7 @@ import globalErrorHandler from "./app/middlewares/globalErrorHandler";
 import notFound from "./app/middlewares/notFound";
 
 const app = express();
-const port = env.PORT || 3000;
+const port = process.env.PORT || 3000
 app.use(
   cors({
     origin: env.CORS_ORIGIN,
