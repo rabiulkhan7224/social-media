@@ -13,9 +13,9 @@ import { ZodError } from 'zod/v3'
  */
 const globalErrorHandler = async (
   err: any,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ): Promise<void> => {
   // Initialize default error details
   let statusCode: number = 500

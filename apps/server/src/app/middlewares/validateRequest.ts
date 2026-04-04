@@ -27,7 +27,7 @@ import { ZodError, type ZodTypeAny, type ZodIssue } from 'zod'
  * app.post('/users/:id', validateRequest(userSchema), userController.createUser);
  */
 const validateRequest = (schema: ZodTypeAny): RequestHandler => {
-  return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  return catchAsync(async (req: Request, _res: Response, next: NextFunction) => {
     try {
       // Prepare the data to validate (body, cookies, and params)
       const dataToValidate = {
