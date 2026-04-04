@@ -1,9 +1,7 @@
-
-
-import prisma from '@social-media/db'
-import AppError from '../../errors/AppError'
-import type {  Prisma } from 'node_modules/@social-media/db/prisma/generated/client'
-import type { GetPostsParams, GetPostsResult } from './post.interface'
+import prisma from "@social-media/db";
+import AppError from "../../errors/AppError";
+import type { Prisma } from "node_modules/@social-media/db/prisma/generated/client";
+import type { GetPostsParams, GetPostsResult } from "./post.interface";
 
 // export const createPost = async (
 //     data: { content: string; image?: string },
@@ -16,7 +14,7 @@ import type { GetPostsParams, GetPostsResult } from './post.interface'
 //         image: data.image || null,
 //         authorId: userId
 //       },
-   
+
 //     })
 
 //     return post
@@ -30,7 +28,7 @@ import type { GetPostsParams, GetPostsResult } from './post.interface'
 
 export const createPost = async (
   userId: string,
-  data: { content: string; image?: string;  }
+  data: { content: string; image?: string },
 ) => {
   try {
     const post = await prisma.post.create({
@@ -53,22 +51,26 @@ export const createPost = async (
     return post;
   } catch (error) {
     if (error instanceof Error) {
-      throw new AppError(500, 'database', 'Failed to create post', error.message);
+      throw new AppError(
+        500,
+        "database",
+        "Failed to create post",
+        error.message,
+      );
     }
     throw error;
   }
 };
 
-
-
-
-export const getPosts = async (params: GetPostsParams = {}): Promise<GetPostsResult> => {
+export const getPosts = async (
+  params: GetPostsParams = {},
+): Promise<GetPostsResult> => {
   const {
     page = 1,
     limit = 20,
     search,
-    sortBy = 'createdAt',
-    sortOrder = 'desc',
+    sortBy = "createdAt",
+    sortOrder = "desc",
     includeComments = false,
     includeLikes = false,
     includeAuthor = true,
@@ -80,29 +82,24 @@ export const getPosts = async (params: GetPostsParams = {}): Promise<GetPostsRes
   // Build where clause
   const where: Prisma.PostWhereInput = {};
 
- 
-
   if (search) {
-    where.OR = [
-      { content: { contains: search, mode: 'insensitive' } },
-    ];
+    where.OR = [{ content: { contains: search, mode: "insensitive" } }];
   }
 
   const include: Prisma.PostInclude = {};
   if (includeAuthor) {
     include.author = {
-    //  without email for privacy 
+      //  without email for privacy
       select: {
         id: true,
         name: true,
         image: true,
-      },      
-        
+      },
     };
-    }
+  }
   if (includeComments) {
     include.Comment = {
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
       include: {
         author: {
           select: {
@@ -144,7 +141,7 @@ export const getPosts = async (params: GetPostsParams = {}): Promise<GetPostsRes
           likes: likeCount,
         },
       };
-    })
+    }),
   );
 
   return {
@@ -155,5 +152,59 @@ export const getPosts = async (params: GetPostsParams = {}): Promise<GetPostsRes
       total,
       totalPages: Math.ceil(total / limit),
     },
+  };
+};
+
+export const getPostById = async (postId: string, userId?: string) => {
+  // Fetch the post with author
+  const post = await prisma.post.findUnique({
+    where: { id: postId },
+    include: {
+      author: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      },
+     Comment:{
+      orderBy: { createdAt: 'desc' },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+      },
+    }
+    },
+  });
+
+  if (!post) {
+    throw new AppError(404, "post", "Post not found");
+  }
+
+  // Get counts
+  const [commentCount, likeCount] = await Promise.all([
+    prisma.comment.count({ where: { postId } }),
+    prisma.like.count({ where: { postId } }),
+  ]);
+
+  // Check if user liked this post (if userId provided)
+  let userLiked = false;
+  if (userId) {
+    const like = await prisma.like.findFirst({
+      where: { postId, userId },
+    });
+    userLiked = !!like;
+  }
+
+  return {
+    ...post,
+    commentCount,
+    likeCount,
+    userLiked,
   };
 };

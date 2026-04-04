@@ -1,6 +1,6 @@
 import type { RequestHandler } from "express";
 import catchAsync from "@/app/utils/catchAsync";
-import { createPost, getPosts } from "./post.service";
+import { createPost, getPostById, getPosts } from "./post.service";
 import AppError from "@/app/errors/AppError";
 
 export const createPosted: RequestHandler = catchAsync(async (req, res) => {
@@ -44,5 +44,18 @@ export const getAllPosts:RequestHandler = catchAsync(async (req, res) => {
     success: true,
     data: result.data,
     meta: result.meta,
+  });
+});
+
+
+export const getPostByIdController: RequestHandler = catchAsync(async (req, res) => {
+  const { id } = req.params as { id: string };
+  const userId = req.user?.id; // from auth middleware (if logged in)
+
+  const post = await getPostById(id, userId);
+
+  res.status(200).json({
+    success: true,
+    data: post,
   });
 });

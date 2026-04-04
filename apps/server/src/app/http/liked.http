@@ -1,0 +1,4 @@
+POST http://localhost:3000/v1/api/likes/toggle/a1be869a-c9e1-4706-9a10-30d0233c38e1
+content-type: application/json
+Cookie: better-auth.session_token=amEq3tVeBvLuGY010DyJXoSxdeUzdiSd.cscbMco7Ti%2F9k%2BPQ0SJibTdHJvuKMgMQn6P3B9BJaV4%3D
+
