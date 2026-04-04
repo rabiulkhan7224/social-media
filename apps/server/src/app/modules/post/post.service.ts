@@ -90,11 +90,28 @@ export const getPosts = async (params: GetPostsParams = {}): Promise<GetPostsRes
 
   const include: Prisma.PostInclude = {};
   if (includeAuthor) {
-    include.author = true;
-  }
+    include.author = {
+    //  without email for privacy 
+      select: {
+        id: true,
+        name: true,
+        image: true,
+      },      
+        
+    };
+    }
   if (includeComments) {
     include.Comment = {
       orderBy: { createdAt: 'desc' },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
+      },
     };
   }
   if (includeLikes) {
@@ -131,7 +148,7 @@ export const getPosts = async (params: GetPostsParams = {}): Promise<GetPostsRes
   );
 
   return {
-    data: postsWithCounts as any, // or define a proper return type
+    data: postsWithCounts,
     meta: {
       page,
       limit,

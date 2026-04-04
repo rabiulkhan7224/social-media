@@ -33,10 +33,10 @@ export const getAllPosts:RequestHandler = catchAsync(async (req, res) => {
     limit: limit ? parseInt(limit as string, 20) : 20,
     authorId: authorId as string,
     search: search as string,
-    sortBy: sortBy as any,
+    sortBy: sortBy as any,  
     sortOrder: sortOrder as any,
     includeComments: includeComments === 'true',
-    includeLikes: includeLikes === 'true',
+    includeLikes: includeLikes === 'true', 
     includeAuthor: includeAuthor !== 'false', // default true
   });
 

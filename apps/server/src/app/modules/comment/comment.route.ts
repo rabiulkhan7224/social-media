@@ -13,6 +13,7 @@ import { addComment, editComment, getPostComments, removeComment } from './comme
 const router = Router();
 
 // Public: get comments for a post (with pagination & nested replies)
+// 
 router.get('/post/:postId', validateRequest(getCommentsSchema), getPostComments);
 
 // Protected: create a comment (top-level or reply)

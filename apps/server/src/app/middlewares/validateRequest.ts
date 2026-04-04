@@ -33,7 +33,8 @@ const validateRequest = (schema: ZodTypeAny): RequestHandler => {
       const dataToValidate = {
         body: req.body,
         cookies: req.cookies,
-        params: req.params
+        params: req.params,
+        query: req.query,
       }
 
       // Validate the data against the schema
