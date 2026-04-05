@@ -137,6 +137,10 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
   --color-bg-card: var(--bs-card-bg);
+   --color-bs-dark: #112032;
+  --color-bs-dark1: #112032;
+  --color-bs-dark2: #232E42;
+  --color-bs-green: #0ACF83;
 }
 
 
