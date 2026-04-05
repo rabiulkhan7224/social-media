@@ -220,7 +220,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp?: ()
                     <div className="pt-6 pb-4">
                       <Button
                         type="submit"
-                        className="w-full h-12  bg-primary hover:bg-[#0d7de8] text-white font-medium text-base rounded-[6px] transition-all duration-300 hover:shadow-lg"
+                        className="w-full h-12  bg-[#0d7de8] text-white font-medium text-base rounded-[6px] transition-all duration-300 hover:shadow-lg"
                         disabled={!canSubmit || isSubmitting || loading}
                         variant={'default'}
                       >
