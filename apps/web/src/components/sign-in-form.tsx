@@ -97,7 +97,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp?: ()
 
           {/* Right — Form Card */}
           <div className="w-full lg:w-1/3 flex justify-center lg:justify-end">
-            <div className="bg-white rounded-xl shadow-[7px_20px_60px_rgba(108,126,147,0.15)] p-8 w-full max-w-[420px]">
+            <div className="bg-bg-card rounded-xl shadow-[7px_20px_60px_rgba(108,126,147,0.15)] p-8 w-full max-w-[420px]">
               {/* Logo */}
               <div className="mb-7">
                 <Image 
@@ -220,8 +220,9 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp?: ()
                     <div className="pt-6 pb-4">
                       <Button
                         type="submit"
-                        className="w-full h-12 bg-bs-primary hover:bg-[#0d7de8] text-white font-medium text-base rounded-[6px] transition-all duration-300 hover:shadow-lg"
+                        className="w-full h-12  bg-primary hover:bg-[#0d7de8] text-white font-medium text-base rounded-[6px] transition-all duration-300 hover:shadow-lg"
                         disabled={!canSubmit || isSubmitting || loading}
+                        variant={'default'}
                       >
                         {isSubmitting || loading ? "Logging in..." : "Login now"}
                       </Button>
@@ -233,6 +234,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp?: ()
               {/* Bottom Link */}
               <p className="text-center text-sm text-[#767676]">
                 Don't have an account?{" "}
+                <Link href="/register">
                 <button
                   type="button"
                   onClick={onSwitchToSignUp}
@@ -240,6 +242,7 @@ export default function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp?: ()
                 >
                   Register
                 </button>
+                </Link>
               </p>
             </div>
           </div>

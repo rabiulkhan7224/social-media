@@ -95,7 +95,7 @@ export default function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn?: ()
 
           {/* Right — Form Card */}
           <div className="w-full lg:w-1/3 flex justify-center lg:justify-end">
-            <div className="bs-card-bg rounded-xl shadow-[7px_20px_60px_rgba(108,126,147,0.15)] p-8 w-full max-w-[420px]">
+            <div className="bg-bg-card rounded-xl shadow-[7px_20px_60px_rgba(108,126,147,0.15)] p-8 w-full max-w-[420px]">
               {/* Logo */}
               <div className="mb-7">
                 <img src="/assets/images/logo.svg" alt="Buddy Script" className="h-10 w-auto object-contain" />
