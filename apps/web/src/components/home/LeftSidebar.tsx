@@ -12,7 +12,7 @@ export async function LeftSidebar() {
       {/* ── Explore Card ── */}
       <div className="bg-white dark:bg-bs-dark1 rounded-[6px] px-[24px] pt-[24px] pb-[16px] border border-bs-border dark:border-bs-dark2 transition-colors bs-card-shadow">
         <h4 className="text-bs-dark dark:text-bs-text font-semibold text-[18px] mb-[24px] font-[Poppins]">Explore</h4>
-        <ul className="space-y-[12px]">
+        <ul className="space-y-3">
           {exploreItems.map((item) => (
             <li key={item.label} className="mb-[24px]">
               <Link

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { BsIcon } from "./BsIcon";
 import Image from "next/image";
 import { Input } from "@social-media/ui/components/input";
+import { useAuth } from "@/app/hooks/useAuth";
 
 
 // ─── Notification Dropdown ────────────────────────────────────────────────
@@ -87,8 +88,8 @@ function ProfileDropdown({ open, user, setDropOpen }: { open: boolean, user: any
     setDropOpen(false);
    
   };
-
-  const userName = user ? (user.name || `${user.firstName || ""} ${user.lastName || ""}`.trim()) : "Guest";
+  // user.name
+  const userName = user?.name || "Guest";
   const userImage = user?.image || "/assets/images/profile.png";
 
   return (
@@ -157,11 +158,14 @@ function ProfileDropdown({ open, user, setDropOpen }: { open: boolean, user: any
 }
 
 // ─── Main Navbar ──────────────────────────────────────────────────────────
-export function Navbar({ user }: { user?: any }) {
+export function Navbar() {
   const [notifyOpen, setNotifyOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const notifyRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
+
+  const{user}=useAuth()
+  console.log(user)
 
   useEffect(() => {
     function onClick(e: MouseEvent) {
@@ -268,7 +272,7 @@ export function Navbar({ user }: { user?: any }) {
             >
               <div className="hidden md:flex items-center">
                 <span className="text-[16px] font-normal text-bs-muted font-[Poppins]">
-                  {user ? (user.name || `${user.firstName || ""} ${user.lastName || ""}`.trim()) : "Guest"}
+                  {user?.name}
                 </span>
                 <div className="ml-[8px] mt-[-3px]">
                   <BsIcon name="chevron-down" size={10} />

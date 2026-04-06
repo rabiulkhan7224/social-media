@@ -38,7 +38,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} antialiased`}>
         <Providers>
           <div className="grid grid-rows-[auto_1fr] h-svh">
-            <Header />
+         
             {children}
           </div>
         </Providers>

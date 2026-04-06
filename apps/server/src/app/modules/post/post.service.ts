@@ -3,28 +3,7 @@ import AppError from "../../errors/AppError";
 import type { Prisma } from "node_modules/@social-media/db/prisma/generated/client";
 import type { GetPostsParams, GetPostsResult } from "./post.interface";
 
-// export const createPost = async (
-//     data: { content: string; image?: string },
-//     userId: string
-// ) => {
-//   try {
-//     const post = await prisma.post.create({
-//       data: {
-//         content: data.content,
-//         image: data.image || null,
-//         authorId: userId
-//       },
 
-//     })
-
-//     return post
-//   } catch (error) {
-//     if (error instanceof Error) {
-//       throw new AppError(500, 'database', 'Failed to create post', error.message)
-//     }
-//     throw error
-//   }
-// }
 
 export const createPost = async (
   userId: string,
@@ -62,9 +41,7 @@ export const createPost = async (
   }
 };
 
-export const getPosts = async (
-  params: GetPostsParams = {},
-): Promise<GetPostsResult> => {
+export const getPosts = async (params: GetPostsParams ): Promise<GetPostsResult> => {
   const {
     page = 1,
     limit = 20,
@@ -75,6 +52,7 @@ export const getPosts = async (
     includeLikes = false,
     includeAuthor = true,
   } = params;
+  console.log(params)
 
   const skip = (page - 1) * limit;
   const take = limit;
