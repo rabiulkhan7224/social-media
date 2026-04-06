@@ -55,7 +55,7 @@ export interface ApiResponse<T = any> {
 }
 
 // API URL from environment
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+const API_URL = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";
 
 // Helper function to get headers with auth cookie
 async function getHeaders() {
