@@ -4,7 +4,7 @@ import { Toaster } from "@social-media/ui/components/sonner";
 
 import { ThemeProvider } from "./theme-provider";
 
-export default function Providers({ children }: { children: React.ReactNode }) {
+const Providers=({ children }: { children: React.ReactNode })=> {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
       {children}
@@ -12,3 +12,5 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     </ThemeProvider>
   );
 }
+
+export default Providers; 

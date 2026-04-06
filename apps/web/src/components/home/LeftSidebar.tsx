@@ -63,7 +63,7 @@ export async function LeftSidebar() {
       </div>
 
       {/* ── Events Card ── */}
-      <div className="bg-white dark:bg-bs-dark1 rounded-[6px] mb-[16px] border border-bs-bg dark:border-bs-dark2 transition-colors">
+      <div className="bg-white dark:bg-bs-dark1 rounded-[6px] mb-[16px] border border-bs-border dark:border-bs-dark2 transition-colors">
         <div className="flex items-center justify-between px-[24px] pt-[24px] mb-[24px]">
           <h4 className="text-bs-dark dark:text-bs-text font-semibold text-[18px] font-[Poppins]">Events</h4>
           <Link href="#" className="text-[12px] font-medium text-bs-primary leading-[18px] font-[Poppins]">See all</Link>
