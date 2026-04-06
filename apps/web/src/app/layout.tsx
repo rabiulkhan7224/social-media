@@ -35,17 +35,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
       <html lang="en" suppressHydrationWarning>
         <body className={`${poppins.variable} antialiased`}>
-          
+          <Providers>
             <div className="grid grid-rows-[auto_1fr] h-svh">
            
               {children}
             </div>
+          </Providers>
           
         </body>
       </html>
-    </ThemeProvider>
   );
 }

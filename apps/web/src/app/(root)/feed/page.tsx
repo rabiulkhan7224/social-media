@@ -1,3 +1,4 @@
+import { CreatePost } from "@/components/home/create-post";
 import { LeftSidebar } from "@/components/home/LeftSidebar";
 import { PostSkeleton } from "@/components/home/PostSkeleton";
 import { Timeline } from "@/components/home/timeline";
@@ -34,7 +35,7 @@ export default async function FeedPage({ searchParams }: FeedPageProps) {
           <div className="w-full container md:px-16 px-4 mx-auto h-full">
       <div className="flex flex-col lg:flex-row gap-5 justify-center items-start h-full">
         {/* ── Left Sidebar ── */}
-        <div className="hidden lg:block w-full lg:w-[280px] xl:w-[320px] shrink-0 h-full overflow-y-auto scrollbar-hide">
+        <div className="hidden lg:block w-full lg:w-70 xl:w-[320px] shrink-0 h-full overflow-y-auto scrollbar-hide">
           <div className="">
         <LeftSidebar/>
 
@@ -42,10 +43,10 @@ export default async function FeedPage({ searchParams }: FeedPageProps) {
         </div>
 
         {/* ── Main Feed (Middle) ── */}
-        <div className="flex-1 w-full max-w-[680px] h-full overflow-y-auto scrollbar-hide">
+        <div className="flex-1 w-full max-w-170 h-full overflow-y-auto scrollbar-hide">
            <div className="">
             
-
+            <CreatePost /> 
             {/* Post Timeline */}
             <Suspense fallback={<PostSkeleton/>}>
             <Timeline postsPromise={postsPromise} />
@@ -54,7 +55,7 @@ export default async function FeedPage({ searchParams }: FeedPageProps) {
         </div>
 
         {/* ── Right Sidebar ── */}
-        <div className="hidden lg:block w-full lg:w-[280px] xl:w-[320px] shrink-0 h-full overflow-y-auto scrollbar-hide">
+        <div className="hidden lg:block w-full lg:w-70 xl:w-[320px] shrink-0 h-full overflow-y-auto scrollbar-hide">
           <div className="">
           </div>
         </div>

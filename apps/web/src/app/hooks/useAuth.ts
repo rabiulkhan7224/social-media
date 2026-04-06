@@ -1,6 +1,7 @@
 'use client';
 
 import { authClient } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export interface User {
@@ -35,6 +36,7 @@ interface UseAuthReturn {
 }
 
 export function useAuth(): UseAuthReturn {
+  const router=useRouter()
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -88,7 +90,13 @@ export function useAuth(): UseAuthReturn {
 
   const signOut = async () => {
     try {
-      await authClient.signOut();
+      await authClient.signOut({
+        fetchOptions: {
+    onSuccess: () => {
+      router.push("/login"); // redirect to login page
+    },
+  },
+      });
       setUser(null);
       setSession(null);
       window.location.href = '/login'; // Redirect to login page

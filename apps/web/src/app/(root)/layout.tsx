@@ -10,7 +10,7 @@ export default function HomeLayout({children}: {children: React.ReactNode}) {
         <Navbar  />
 
         {/* Main Content Area */}
-        <main className="flex-1 pt-28 overflow-hidden">
+        <main className="flex-1 pt-28 overflow-hidden ">
           {children}
         </main>
 
